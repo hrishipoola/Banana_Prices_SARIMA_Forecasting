@@ -1,1 +1,61 @@
-# Banana_Prices_SARIMA_Forecasting
+Banana Price SARIMAX Prediction & Forecasting
+
+Table of Contents¶
+
+    Introduction
+    Install and Import Packages
+    Access Data from FRED
+    Explore Data (Plot, ACF, AD Fuller)
+    Identification
+    5.1. Seasonality
+    5.2. Stationarize
+    5.3. Identify AR Order
+    5.3.1 PACF
+    5.3.2. AIC and BIC
+    5.4. Identify MA Order
+    Estimation
+    6.1. ARIMA
+    6.2. SARIMA
+    6.3. SARIMAX
+    Model Diagnostics
+    7.1. Plot Diagnostics
+    7.2. SARIMAX Summary
+    7.3. Prediction (In-Sample)
+    7.3.1. Evaluation
+    7.4. Forecast (Out-of-Sample)
+    Production
+    Future Areas for Improvement
+
+1. Introduction
+
+Let's go bananas. Today, we'll predict (in-sample) and forecast (out-of-sample) banana prices using time series data from January 1, 1990 through July 1, 2020 pulled from Federal Reserve Economic Data (FRED) (https://fred.stlouisfed.org/). There, you'll find thousands of macroeconomic and other indicators from around the world if you'd like to explore yourself.
+
+We'll check for seasonality, transform the data to make it stationary, identify the right orders for AR (autoregressive) and MA (moving average) models and bring them together with ARIMA (autoregressive integrated moving average), SARIMA (seasonal ARIMA), and SARIMAX. We'll fit our model, diagnose it, and use it to make predictions and forecasts (48 months into the future). Building a forecast like this could help wholesale and retail grocers manage inventory and supply chains, set mark-ups, and hedge price fluctuations as well as commodity traders.
+
+To ensure we're building and deploying a high quality model, let's follow the Box-Jenkins framework:
+
+    Identification: identify seasonality, stationarize data (check with AD Fuller test), identify orders (p, q) for AR and MA models using ACF, PACF and optimizing AIC and BIC
+
+    Estimation: fit ARIMA, SARIMA, and SARIMAX models to estimate AR and MA coefficients
+
+    Model Diagnostics: plot diagnostics, summary, prediction (in-sample) and evaluation, forecast (out-of-sample)
+
+    Production: save model using joblib (a set of tools for lightweight Python pipelining, including transparent disk-caching and parallel computing - https://pypi.org/project/joblib/ , https://joblib.readthedocs.io/en/latest/
+
+Our end SARIMAX model features well-behaved residuals with predicted values that differ, on average, by 8% from historical observed values.
+
+Future Areas for Improvement
+
+Context: Get more context from industry experts to understand what constitutes a reasonable forecast error in this specific case. MAPE has its own disadvantages so consider other metrics that industry experts use
+
+Distribution of Residuals: As we will see with the Jarque-Bera(JB) test and its low (<0.05) p-value Prob(JB) that residuals are not entirely normally distributed. We could also see this in the QQ plot. We could check if removing outliers improves this.
+
+Stationarity: Our differenced data is only weakly stationary. We can see this in the higher variance in the earlier part of the series. Apply and compare other log transform, n-level differencing, seasonal differencing, or square root adjustments.
+
+Dynamic prediction and forecast: Incorporated predicted / forecasted values (not just true endogenous values) into prediction and forecast. To do this, set dynamice=True in .get_prediction and .get_forecast, plot, and evaluate.
+
+Incorporate exogenous variables: Incorporate exogenous variables (e.g., climate, supply shocks, anomalies) into SARIMAX.
+
+Compare: Compare our forcaste mean prices with futures contracts
+
+Business Translation: Translate the model selection/optimization rationale, evaluation metrics (e.g., MAPE), predictions and forecasts into specific business impact so that it's helpful to understand for a client / stakeholder.
